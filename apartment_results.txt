@@ -1,0 +1,452 @@
+======================================================================
+🏠 APARTMENTS.COM INFORMATION EXTRACTOR
+======================================================================
+
+🔍 Extracting from: https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/
+
+Step 1: Extracting apartment information...
+----------------------------------------------------------------------
+✅ Task created: 2d34c205-3f38-4f48-aa08-61794f126124
+📺 Watch live: https://platform.yutori.com/browsing/tasks/2d34c205-3f38-4f48-aa08-61794f126124
+
+⏳ Waiting for extraction...
+  [1] Queued...
+  [2] Queued...
+  [3] Queued...
+  [4] Extracting information...
+  [5] Extracting information...
+  [6] Extracting information...
+  [7] Extracting information...
+  [8] Extracting information...
+  [9] Extracting information...
+  [10] Extracting information...
+  [11] Extracting information...
+  [12] Extracting information...
+  [13] Extracting information...
+  [14] Extracting information...
+  [15] Extracting information...
+  [16] Extracting information...
+  [17] Extracting information...
+  [18] Extracting information...
+  [19] Extracting information...
+  [20] Extracting information...
+  [21] Extracting information...
+  [22] Extracting information...
+  [23] Extracting information...
+  [24] Extracting information...
+  [25] Extracting information...
+  [26] Extracting information...
+  [27] Extracting information...
+  [28] Extracting information...
+  [29] Extracting information...
+  [30] Extracting information...
+  [31] Extracting information...
+  [32] Extracting information...
+  [33] Extracting information...
+  [34] Extracting information...
+  [35] Extracting information...
+  [36] Extracting information...
+  [37] Extracting information...
+  [38] Extracting information...
+  [39] Extracting information...
+  [40] Extracting information...
+  [41] Extracting information...
+  [42] Extracting information...
+  [43] Extracting information...
+  [44] Extracting information...
+  [45] Extracting information...
+  [46] Extracting information...
+  [47] Extracting information...
+  [48] Extracting information...
+  [49] Extracting information...
+  [50] Extracting information...
+  [51] Extracting information...
+  [52] Extracting information...
+  [53] Extracting information...
+  [54] Extracting information...
+  [55] Extracting information...
+  [56] Extracting information...
+  [57] Extracting information...
+  [58] Extracting information...
+  [59] Extracting information...
+  [60] Extracting information...
+  [61] Extracting information...
+  [62] Extracting information...
+  [63] Extracting information...
+  [64] Extracting information...
+  [65] Extracting information...
+  [66] Extracting information...
+  [67] Extracting information...
+  [68] Extracting information...
+  [69] Extracting information...
+  [70] Extracting information...
+  [71] Extracting information...
+  [72] Extracting information...
+  [73] Extracting information...
+  [74] Extracting information...
+  [75] Extracting information...
+  [76] Extracting information...
+  [77] Extracting information...
+  [78] Extracting information...
+  [79] Extracting information...
+  [80] Extracting information...
+
+✅ Extraction complete!
+
+======================================================================
+📊 APARTMENT INFORMATION
+======================================================================
+
+📝 RAW RESULT:
+<h4>Summary</h4><pre>Summary of findings: # Complete Apartment Information Extraction - Hub on Campus West Lafayette
+
+## Source URL
+**https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/**
+
+---
+
+## Basic Information
+
+| Field | Value |
+|-------|-------|
+| **Property Name** | Hub on Campus West Lafayette |
+| **Full Address** | 111 S Salisbury St, West Lafayette, IN 47906 |
+| **Monthly Rent Range** | $1,145 - $2,329 per person |
+| **Bedrooms** | Studio - 4 bd |
+| **Bathrooms** | 1 - 4 ba |
+| **Square Footage** | 329 - 1,421 sq ft |
+| **Management Company** | CORE Spaces |
+| **ZIP Code** | 47906 |
+| **County** | Tippecanoe County |
+| **School District** | West Lafayette Com School Corp |
+
+---
+
+## Pricing &amp; Floor Plans (Complete List)
+
+| Floor Plan | Price/Person | Bedrooms | Bathrooms | Square Footage | Availability |
+|------------|--------------|----------|-----------|----------------|--------------|
+| Studio - Double Occupancy | $1,425/person | Studio | 1 Bath | 544 sq ft | Available Now |
+| Murphy A | $1,829 - $1,889/person | Studio | 1 Bath | 329 sq ft | Available Now |
+| Studio A | $2,029 - $2,059/person | Studio | 1 Bath | 400 sq ft | Available Now |
+| 1x1 A | $2,299 - $2,329/person | 1 Bed | 1 Bath | 526 sq ft | Available Now |
+| 2x1 A | $1,364 - $1,554/person | 2 Beds | 1 Bath | 623 sq ft | Available Now |
+| 2x2 A | $1,620 - $1,730/person | 2 Beds | 2 Baths | 742 sq ft | Available Now |
+| 2x2 B | $1,645 - $1,735/person | 2 Beds | 2 Baths | 751 sq ft | Available Now |
+| 3x2 A | $1,375 - $1,500/person | 3 Beds | 2 Baths | 853 sq ft | Available Now |
+| 3x2 B | $1,425/person | 3 Beds | 2 Baths | 1,015 sq ft | Available Now |
+| 3x3 B | $1,500 - $1,610/person | 3 Beds | 3 Baths | 1,014 sq ft | Available Now |
+| 4x3 D | $1,145 - $1,195/person | 4 Beds | 3 Baths | 1,213-1,233 sq ft | Available Now |
+| 4x2 D | $1,325 - $1,385/person | 4 Beds | 2 Baths | 1,039 sq ft | Available Now |
+| 4x2 F | $1,325 - $1,385/person | 4 Beds | 2 Baths | 1,156 sq ft | Available Now |
+| 4x2 E | $1,340/person | 4 Beds | 2 Baths | 1,105 sq ft | Available Now |
+| 4x3 A | $1,345 - $1,375/person | 4 Beds | 3 Baths | 1,128 sq ft | Available Now |
+| 4x2 C | $1,350/person | 4 Beds | 2 Baths | 1,036 sq ft | Available Now |
+| 4x2 B | $1,350 - $1,415/person | 4 Beds | 2 Baths | 1,014 sq ft | Available Now |
+| 4x3 E | $1,365/person | 4 Beds | 3 Baths | 1,243 sq ft | Available Now |
+| 4x3 C | $1,400 - $1,465/person | 4 Beds | 3 Baths | 1,180 sq ft | Available Now |
+| 4x4 A | $1,420 - $1,485/person | 4 Beds | 4 Baths | 1,397 sq ft | Available Now |
+| 4x4 B | $1,450 - $1,530/person | 4 Beds | 4 Baths | 1,309 sq ft | Available Now |
+| 4x4 C | $1,450 - $1,560/person | 4 Beds | 4 Baths | 1,421 sq ft | Available Now |
+
+---
+
+## Amenities (Complete List)
+
+### Community Amenities
+- Pool
+- Fitness Center
+- Furnished Units Available
+- Elevator
+- Concierge
+- Clubhouse
+- Roof Terrace
+- Controlled Access
+
+### Property Services
+- Package Service
+- Community-Wide WiFi
+- Wi-Fi
+- Controlled Access
+- Maintenance on site
+- Property Manager on Site
+- Concierge
+- 24 Hour Access
+- Furnished Units Available
+- On-Site Retail
+- Recycling
+- Renters Insurance Program
+- Planned Social Activities
+- Key Fob Entry
+- Wheelchair Accessible
+
+### Shared Community
+- Elevator
+- Business Center
+- Clubhouse
+- Lounge
+- Multi Use Room
+- Disposal Chutes
+- Conference Rooms
+
+### Fitness &amp; Recreation
+- Fitness Center
+- Hot Tub
+- Sauna
+- Spa
+- Pool
+- Bicycle Storage
+- Gameroom
+
+### Outdoor Features
+- Roof Terrace
+- Sundeck
+- Cabana
+- Courtyard
+- Grill
+
+### Student Features
+- Individual Locking Bedrooms
+- Roommate Matching
+- Walk To Campus
+- Study Lounge
+- Individual Leases Available
+
+### Apartment Features
+- Washer/Dryer
+- Air Conditioning
+- Dishwasher
+- Hardwood Floors
+- Walk-In Closets
+- Microwave
+- Refrigerator
+- Wi-Fi
+
+### Indoor Features
+- Wi-Fi
+- Washer/Dryer
+- Air Conditioning
+- Heating
+- Ceiling Fans
+- Smoke Free
+- Tub/Shower
+- Sprinkler System
+- Wheelchair Accessible (Rooms)
+
+### Kitchen Features &amp; Appliances
+- Dishwasher
+- Disposal
+- Ice Maker
+- Stainless Steel Appliances
+- Kitchen
+- Microwave
+- Oven
+- Refrigerator
+- Quartz Countertops
+
+### Model Details
+- Hardwood Floors
+- Tile Floors
+- Vinyl Flooring
+- Views
+- Walk-In Closets
+- Furnished
+- Floor to Ceiling Windows
+- Balcony
+
+---
+
+## Highlights (Featured Amenities)
+- By-The-Bed Leasing
+- Furnished Units Available
+- Floor to Ceiling Windows
+- Walk To Campus
+- Sauna
+- Roof Terrace
+- Cabana
+- Pool
+- Walk-In Closets
+
+---
+
+## Media
+
+### Photo Gallery
+- **Total Photos:** 33 Photos
+- **Virtual Tours:** 4 Virtual Tours
+- **Video:** 1 Video
+- **Photo Gallery URL:** https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#69yh6bv-0-photos
+
+*Note: Individual photo URLs were not extracted as they require right-clicking on each image in the gallery, which was in progress when stopped.*
+
+---
+
+## Contact &amp; Details
+
+| Field | Value |
+|-------|-------|
+| **Contact Phone** | (765) 881-6365 |
+| **Office Hours** | Open 10am - 6pm Today |
+| **Language** | English |
+| **Application Fee** | $50 per applicant |
+| **Lease Terms** | 12 month lease |
+| **Utilities Included** | Trash Removal, Internet |
+| **Property Website** | &quot;View Property Website&quot; link available on page (URL not captured) |
+| **Management** | CORE Spaces |
+
+---
+
+## Pet Policy
+**Not explicitly stated on the page.** A &quot;Pets&quot; tab was visible in the Fees and Policies section but was not expanded or viewed in detail.
+
+---
+
+## Property Description
+
+**&quot;Welcome To Hub State Street....Off Campus Housing Near Purdue&quot;**
+
+&quot;Looking for urban luxury living that&#x27;s fit for students? Check out Hub State Street! This amazing community of furnished, off campus housing near Purdue University features world-class amenities – only minutes from campus.
+
+Hub on Campus West Lafayette is an apartment community located in Tippecanoe County and the 47906 ZIP Code. This area is served by the West Lafayette Com School Corp attendance zone.&quot;
+
+---
+
+## Special Offer
+**Save $100 per month when you sign a lease for AY26.27 within 72 hours on select floorplans. Use promo code HUB when you sign, and we&#x27;ll waive fees.**
+
+---
+
+## Property Information
+- **Year Built:** 2019
+- **Total Units:** 226 units
+- **Stories:** 12 stories
+- **Unit Types:** Furnished Units Available
+
+---
+
+## Matterport 3D Tours
+- **Virtual Tours Available:** 4 virtual tours
+- **3D Tour URL:** Matterport 3D Tours section available on page (https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#3dTourSection)
+
+---
+
+## Rating
+- **Rating:** 3.3 out of 5 stars
+- **Number of Reviews:** 17 reviews
+
+---
+
+## Floor Plan URLs
+*Note: Individual floor plan image URLs were not extracted as they would require clicking on each floor plan card and capturing the image source. The floor plans are displayed dynamically on the page.*
+
+---
+
+## Virtual Tour URL
+*Note: Specific virtual tour URLs were not extracted. The Matterport 3D Tours section contains 4 virtual tours accessible from the listing page.*
+
+---
+
+## Summary of All URLs Found
+
+1. **Main Listing Page:** https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/
+2. **Photo Gallery:** https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#69yh6bv-0-photos
+3. **About/Description Section:** https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#descriptionSection
+4. **Amenities Section:** https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#amenitiesSection
+5. **Matterport 3D Tours:** https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#3dTourSection
+
+---
+
+## Information Not Fully Extracted
+- Individual photo URLs (33 photos total)
+- Individual floor plan image URLs
+- Specific virtual tour URLs (4 tours)
+- Pet policy details (tab exists but not expanded)
+- Specific website URL for property management</pre><hr/><h4>Structured Result</h4><pre>{
+  &quot;property_name&quot;: &quot;Hub on Campus West Lafayette&quot;,
+  &quot;address&quot;: &quot;111 S Salisbury St, West Lafayette, IN 47906&quot;,
+  &quot;pricing&quot;: &quot;$1,145 - $2,329 per person&quot;,
+  &quot;bedrooms&quot;: &quot;Studio - 4 bd&quot;,
+  &quot;bathrooms&quot;: &quot;1 - 4 ba&quot;,
+  &quot;square_footage&quot;: &quot;329 - 1,421 sq ft&quot;,
+  &quot;amenities&quot;: [
+    &quot;Pool&quot;,
+    &quot;Fitness Center&quot;,
+    &quot;Furnished Units Available&quot;,
+    &quot;Elevator&quot;,
+    &quot;Concierge&quot;,
+    &quot;Clubhouse&quot;,
+    &quot;Roof Terrace&quot;,
+    &quot;Controlled Access&quot;,
+    &quot;Package Service&quot;,
+    &quot;Community-Wide WiFi&quot;,
+    &quot;Wi-Fi&quot;,
+    &quot;Maintenance on site&quot;,
+    &quot;Property Manager on Site&quot;,
+    &quot;24 Hour Access&quot;,
+    &quot;On-Site Retail&quot;,
+    &quot;Recycling&quot;,
+    &quot;Renters Insurance Program&quot;,
+    &quot;Planned Social Activities&quot;,
+    &quot;Key Fob Entry&quot;,
+    &quot;Wheelchair Accessible&quot;,
+    &quot;Business Center&quot;,
+    &quot;Lounge&quot;,
+    &quot;Multi Use Room&quot;,
+    &quot;Disposal Chutes&quot;,
+    &quot;Conference Rooms&quot;,
+    &quot;Hot Tub&quot;,
+    &quot;Sauna&quot;,
+    &quot;Spa&quot;,
+    &quot;Bicycle Storage&quot;,
+    &quot;Gameroom&quot;,
+    &quot;Sundeck&quot;,
+    &quot;Cabana&quot;,
+    &quot;Courtyard&quot;,
+    &quot;Grill&quot;,
+    &quot;Individual Locking Bedrooms&quot;,
+    &quot;Roommate Matching&quot;,
+    &quot;Walk To Campus&quot;,
+    &quot;Study Lounge&quot;,
+    &quot;Individual Leases Available&quot;,
+    &quot;Washer/Dryer&quot;,
+    &quot;Air Conditioning&quot;,
+    &quot;Dishwasher&quot;,
+    &quot;Hardwood Floors&quot;,
+    &quot;Walk-In Closets&quot;,
+    &quot;Microwave&quot;,
+    &quot;Refrigerator&quot;,
+    &quot;Heating&quot;,
+    &quot;Ceiling Fans&quot;,
+    &quot;Smoke Free&quot;,
+    &quot;Tub/Shower&quot;,
+    &quot;Sprinkler System&quot;,
+    &quot;Wheelchair Accessible (Rooms)&quot;,
+    &quot;Disposal&quot;,
+    &quot;Ice Maker&quot;,
+    &quot;Stainless Steel Appliances&quot;,
+    &quot;Kitchen&quot;,
+    &quot;Oven&quot;,
+    &quot;Quartz Countertops&quot;,
+    &quot;Tile Floors&quot;,
+    &quot;Vinyl Flooring&quot;,
+    &quot;Views&quot;,
+    &quot;Floor to Ceiling Windows&quot;,
+    &quot;Balcony&quot;
+  ],
+  &quot;description&quot;: &quot;Welcome To Hub State Street....Off Campus Housing Near Purdue. Looking for urban luxury living that&#x27;s fit for students? Check out Hub State Street! This amazing community of furnished, off campus housing near Purdue University features world-class amenities – only minutes from campus. Hub on Campus West Lafayette is an apartment community located in Tippecanoe County and the 47906 ZIP Code. This area is served by the West Lafayette Com School Corp attendance zone.&quot;,
+  &quot;photo_urls&quot;: [
+    &quot;https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#69yh6bv-0-photos&quot;
+  ],
+  &quot;floor_plan_urls&quot;: [],
+  &quot;contact_phone&quot;: &quot;(765) 881-6365&quot;,
+  &quot;website_url&quot;: &quot;Type unknown&quot;,
+  &quot;virtual_tour_url&quot;: &quot;Matterport 3D Tours section available on page (https://www.apartments.com/hub-on-campus-west-lafayette-west-lafayette-in/69yh6bv/#3dTourSection)&quot;,
+  &quot;pet_policy&quot;: &quot;Not explicitly stated on the page.&quot;,
+  &quot;lease_terms&quot;: &quot;12 month lease&quot;
+}</pre>
+
+======================================================================
+✨ EXTRACTION COMPLETE
+======================================================================
+📺 View full recording: https://platform.yutori.com/browsing/tasks/2d34c205-3f38-4f48-aa08-61794f126124
+======================================================================

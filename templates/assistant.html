@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 AI Apartment Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 { color: #667eea; text-align: center; margin-bottom: 30px; }
+        .section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .section h2 { color: #495057; margin-bottom: 15px; font-size: 1.2em; }
+        input, button {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            font-size: 14px;
+            margin: 5px;
+        }
+        input {
+            flex: 1;
+            min-width: 200px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        button:hover { background: #5568d3; transform: translateY(-2px); }
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+        .voice-btn {
+            background: #e74c3c;
+            font-size: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .voice-btn.listening { background: #27ae60; animation: pulse 1.5s infinite; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .flex { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .result {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .loading { color: #667eea; font-weight: 600; }
+        .error { color: #e74c3c; font-weight: 600; }
+        .success { color: #27ae60; font-weight: 600; }
+        .chat-container {
+            max-height: 500px;
+            overflow-y: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 80%;
+        }
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+        .message.assistant {
+            background: #e9ecef;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 AI Apartment Assistant</h1>
+        <p style="text-align: center; color: #6c757d; margin-bottom: 30px;">
+            Voice-enabled apartment search powered by Yutori + Pioneer + Reka AI
+        </p>
+
+        <!-- Step 1: Set Preferences -->
+        <div class="section">
+            <h2>📋 Step 1: Tell Me Your Preferences</h2>
+            <div class="flex">
+                <input type="text" id="budget" placeholder="Max Budget ($1500)">
+                <input type="text" id="bedrooms" placeholder="Bedrooms (2)">
+                <input type="text" id="must_haves" placeholder="Must-have amenities (gym, pool)">
+            </div>
+            <div class="flex">
+                <input type="text" id="lifestyle" placeholder="Lifestyle (student/professional)">
+                <input type="text" id="priorities" placeholder="Priorities (price, location)">
+                <button onclick="savePreferences()">💾 Save Preferences</button>
+            </div>
+            <div id="prefs-status"></div>
+        </div>
+
+        <!-- Step 2: Search Property -->
+        <div class="section">
+            <h2>🔍 Step 2: Search Apartment</h2>
+            <div class="flex">
+                <input type="text" id="property_url" placeholder="Apartments.com URL" style="flex: 2;">
+                <button onclick="searchProperty()">🚀 Extract with Yutori</button>
+            </div>
+            <div id="search-status"></div>
+        </div>
+
+        <!-- Step 3: Extract Structured Data -->
+        <div class="section">
+            <h2>📊 Step 3: Extract Structured Data (Pioneer)</h2>
+            <button onclick="extractStructured()">🔬 Extract Entities</button>
+            <div id="structured-status"></div>
+        </div>
+
+        <!-- Step 4: Generate Insights -->
+        <div class="section">
+            <h2>💡 Step 4: Generate Insights (Reka AI)</h2>
+            <button onclick="generateInsights()">✨ Generate Insights</button>
+            <div id="insights-status"></div>
+        </div>
+
+        <!-- Step 5: Ask Questions -->
+        <div class="section">
+            <h2>💬 Step 5: Ask Questions (Voice or Text)</h2>
+            <div class="flex">
+                <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">🎤</button>
+                <input type="text" id="question" placeholder="Ask anything..." style="flex: 1;">
+                <button onclick="askQuestion()">📤 Ask</button>
+            </div>
+            <div class="chat-container" id="chat"></div>
+        </div>
+    </div>
+
+    <script>
+        let recognition;
+        let isListening = false;
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('question').value = transcript;
+                askQuestion();
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                document.getElementById('voiceBtn').classList.remove('listening');
+            };
+        }
+
+        function toggleVoice() {
+            if (!recognition) {
+                alert('Speech recognition not supported in this browser');
+                return;
+            }
+
+            if (isListening) {
+                recognition.stop();
+                isListening = false;
+                document.getElementById('voiceBtn').classList.remove('listening');
+            } else {
+                recognition.start();
+                isListening = true;
+                document.getElementById('voiceBtn').classList.add('listening');
+            }
+        }
+
+        async function savePreferences() {
+            const prefs = {
+                budget: document.getElementById('budget').value,
+                bedrooms: document.getElementById('bedrooms').value,
+                must_haves: document.getElementById('must_haves').value,
+                lifestyle: document.getElementById('lifestyle').value,
+                priorities: document.getElementById('priorities').value
+            };
+
+            const response = await fetch('/api/set-preferences', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(prefs)
+            });
+
+            const result = await response.json();
+            document.getElementById('prefs-status').innerHTML = '<div class="result success">✅ Preferences saved!</div>';
+        }
+
+        async function searchProperty() {
+            const url = document.getElementById('property_url').value;
+            if (!url) {
+                alert('Please enter a property URL');
+                return;
+            }
+
+            document.getElementById('search-status').innerHTML = '<div class="loading">⏳ Yutori is extracting data... This may take a minute...</div>';
+
+            const response = await fetch('/api/search-property', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({url})
+            });
+
+            const result = await response.json();
+            if (result.error) {
+                document.getElementById('search-status').innerHTML = `<div class="result error">❌ Error: ${result.error}</div>`;
+            } else {
+                document.getElementById('search-status').innerHTML = `
+                    <div class="result success">
+                        ✅ Extraction complete!<br><br>
+                        📺 <a href="${result.yutori_url}" target="_blank">Watch Yutori Recording</a><br><br>
+                        <strong>Preview:</strong><br>${result.extraction}
+                    </div>`;
+            }
+        }
+
+        async function extractStructured() {
+            document.getElementById('structured-status').innerHTML = '<div class="loading">⏳ Pioneer is extracting entities...</div>';
+
+            const response = await fetch('/api/extract-structured', {method: 'POST'});
+            const result = await response.json();
+
+            if (result.error) {
+                document.getElementById('structured-status').innerHTML = `<div class="result error">❌ Error: ${result.error}</div>`;
+            } else {
+                document.getElementById('structured-status').innerHTML = `
+                    <div class="result success">
+                        ✅ Structured data extracted!<br><br>
+                        <pre>${JSON.stringify(result.data, null, 2)}</pre>
+                    </div>`;
+            }
+        }
+
+        async function generateInsights() {
+            document.getElementById('insights-status').innerHTML = '<div class="loading">⏳ Reka is analyzing property...</div>';
+
+            const response = await fetch('/api/generate-insights', {method: 'POST'});
+            const result = await response.json();
+
+            if (result.error) {
+                document.getElementById('insights-status').innerHTML = `<div class="result error">❌ Error: ${result.error}</div>`;
+            } else {
+                document.getElementById('insights-status').innerHTML = `
+                    <div class="result success">
+                        ${result.insights}
+                    </div>`;
+            }
+        }
+
+        async function askQuestion() {
+            const question = document.getElementById('question').value;
+            if (!question) return;
+
+            // Add user message to chat
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<div class="message user">You: ${question}</div>`;
+
+            // Show loading
+            chat.innerHTML += '<div class="message assistant loading" id="temp">🤔 Thinking...</div>';
+            chat.scrollTop = chat.scrollHeight;
+
+            const response = await fetch('/api/ask-question', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({question})
+            });
+
+            const result = await response.json();
+            document.getElementById('temp').remove();
+
+            if (result.error) {
+                chat.innerHTML += `<div class="message assistant error">❌ Error: ${result.error}</div>`;
+            } else {
+                chat.innerHTML += `<div class="message assistant">🤖 ${result.answer}</div>`;
+            }
+
+            chat.scrollTop = chat.scrollHeight;
+            document.getElementById('question').value = '';
+        }
+
+        // Allow Enter key to ask question
+        document.getElementById('question').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') askQuestion();
+        });
+    </script>
+</body>
+</html>

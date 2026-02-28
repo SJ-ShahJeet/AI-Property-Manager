@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 Property Voice Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        #mainImage {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mic-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            cursor: pointer;
+            font-size: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s;
+        }
+
+        .mic-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.7);
+        }
+
+        .mic-button.listening {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: pulse 2s infinite;
+        }
+
+        .mic-button.speaking {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            animation: speaking 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(245, 87, 108, 0.5);
+            }
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 20px 60px rgba(245, 87, 108, 0.8);
+            }
+        }
+
+        @keyframes speaking {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .status {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            min-height: 30px;
+        }
+
+        .hint {
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 Hub on Campus West Lafayette</h1>
+
+        <div class="image-container">
+            <img id="mainImage" src="" alt="Property Image">
+        </div>
+
+        <button class="mic-button" id="micButton" onclick="toggleListening()">
+            🎤
+        </button>
+
+        <div class="status" id="status">Click the mic to ask questions or view rooms</div>
+        <div class="hint">Try: "Show me the kitchen" or "What's the price?"</div>
+    </div>
+
+    <script>
+        let isListening = false;
+        let isSpeaking = false;
+        let recognition = null;
+        let synthesis = window.speechSynthesis;
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                handleQuery(transcript);
+            };
+
+            recognition.onend = () => {
+                if (isListening && !isSpeaking) {
+                    setTimeout(() => {
+                        if (isListening) recognition.start();
+                    }, 500);
+                } else {
+                    stopListening();
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                stopListening();
+            };
+        }
+
+        function toggleListening() {
+            if (!recognition) {
+                alert('Speech recognition not supported in this browser');
+                return;
+            }
+
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        }
+
+        function startListening() {
+            // Cancel any ongoing speech
+            synthesis.cancel();
+            isSpeaking = false;
+
+            try {
+                recognition.start();
+                isListening = true;
+                document.getElementById('micButton').classList.add('listening');
+                document.getElementById('status').textContent = '🎤 Listening...';
+            } catch (error) {
+                console.error('Error starting recognition:', error);
+            }
+        }
+
+        function stopListening() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+            isListening = false;
+            document.getElementById('micButton').classList.remove('listening');
+            document.getElementById('status').textContent = 'Click the mic to ask questions or view rooms';
+        }
+
+        function speak(text) {
+            // Stop listening while speaking
+            if (isListening) {
+                recognition.stop();
+            }
+
+            isSpeaking = true;
+            const micButton = document.getElementById('micButton');
+            micButton.classList.remove('listening');
+            micButton.classList.add('speaking');
+            document.getElementById('status').textContent = '🔊 Speaking...';
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+
+            utterance.onend = () => {
+                isSpeaking = false;
+                micButton.classList.remove('speaking');
+
+                // Resume listening if it was active
+                if (isListening) {
+                    setTimeout(() => {
+                        if (isListening) {
+                            micButton.classList.add('listening');
+                            document.getElementById('status').textContent = '🎤 Listening...';
+                            recognition.start();
+                        }
+                    }, 500);
+                } else {
+                    document.getElementById('status').textContent = 'Click the mic to ask questions or view rooms';
+                }
+            };
+
+            synthesis.speak(utterance);
+        }
+
+        async function handleQuery(query) {
+            document.getElementById('status').textContent = `Processing: "${query}"`;
+
+            try {
+                const response = await fetch('/api/smart-query', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({query: query})
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    speak('Sorry, I encountered an error');
+                } else if (result.type === 'answer') {
+                    // Show related image if available
+                    if (result.image) {
+                        displayImage(result.image.filename);
+                    }
+
+                    // Speak the answer
+                    speak(result.answer);
+                } else {
+                    // Image request
+                    displayImage(result.filename);
+                    speak(result.description || 'Here is the image');
+                }
+            } catch (error) {
+                console.error('Query error:', error);
+                speak('Sorry, something went wrong');
+            }
+        }
+
+        function displayImage(filename) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = `/images/${filename}`;
+        }
+
+        // Load initial image
+        async function loadInitialImage() {
+            const response = await fetch('/api/property-data');
+            const data = await response.json();
+
+            if (data.images && data.images.length > 0) {
+                displayImage(data.images[0]);
+            }
+        }
+
+        loadInitialImage();
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# Environment variables - NEVER commit API keys!
+.env
+*.env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Extractions (may contain sensitive data)
+extractions/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Property data (may contain scraped content)
+property_summary.json
+image_data.json

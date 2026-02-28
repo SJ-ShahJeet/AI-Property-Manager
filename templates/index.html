@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Property Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+        }
+
+        .mic-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s;
+        }
+
+        .mic-circle.listening {
+            animation: pulse 2s infinite;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 20px 60px rgba(245, 87, 108, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 30px 80px rgba(245, 87, 108, 0.8);
+            }
+        }
+
+        .start-button {
+            padding: 20px 50px;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            font-weight: 600;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .start-button.listening {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .status {
+            font-size: 1.2em;
+            color: #667eea;
+            margin-top: 30px;
+            min-height: 30px;
+            font-weight: 600;
+        }
+
+        .voice-text {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: white;
+            min-height: 40px;
+            font-style: italic;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(102, 126, 234, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .loading-steps {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .step {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step.active {
+            background: rgba(102, 126, 234, 0.2);
+            border-left: 4px solid #667eea;
+        }
+
+        .step.done {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4caf50;
+        }
+
+        .step-icon {
+            font-size: 1.5em;
+        }
+
+        .ready-button {
+            margin-top: 40px;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+            font-weight: 600;
+            animation: fadeInUp 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ready-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
+            background: linear-gradient(135deg, #45a049 0%, #4caf50 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 AI Property Assistant</h1>
+        <p class="subtitle">Speak to search for apartments</p>
+
+        <div class="mic-circle" id="micCircle">🎤</div>
+
+        <button class="start-button" id="startButton" onclick="toggleListening()">
+            Start Listening
+        </button>
+
+        <div class="status" id="status">Press the button and say a property name</div>
+        <div class="voice-text" id="voiceText"></div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loadingText">Processing your request...</div>
+
+            <div class="loading-steps">
+                <div class="step" id="step1">
+                    <div class="step-icon">🔍</div>
+                    <div>Yutori extracting property information...</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-icon">📊</div>
+                    <div>Pioneer analyzing structured data...</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-icon">🖼️</div>
+                    <div>Reka analyzing images...</div>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-icon">✨</div>
+                    <div>Generating insights...</div>
+                </div>
+            </div>
+
+            <button class="ready-button" id="readyButton" style="display: none;" onclick="goToDashboard()">
+                Let's Get Going! 🚀
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let isListening = false;
+        let recognition = null;
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+            recognition.interimResults = true;
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[event.results.length - 1][0].transcript;
+                document.getElementById('voiceText').textContent = `"${transcript}"`;
+
+                if (event.results[event.results.length - 1].isFinal) {
+                    searchProperty(transcript);
+                }
+            };
+
+            recognition.onend = () => {
+                if (isListening) {
+                    recognition.start();
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                document.getElementById('status').textContent = 'Error: ' + event.error;
+                stopListening();
+            };
+        }
+
+        function toggleListening() {
+            if (!recognition) {
+                alert('Speech recognition not supported in this browser');
+                return;
+            }
+
+            if (!isListening) {
+                startListening();
+            } else {
+                stopListening();
+            }
+        }
+
+        function startListening() {
+            try {
+                recognition.start();
+                isListening = true;
+
+                document.getElementById('micCircle').classList.add('listening');
+                document.getElementById('startButton').classList.add('listening');
+                document.getElementById('startButton').textContent = 'Listening... Click to Stop';
+                document.getElementById('status').textContent = '🎤 Say a property name (e.g., "Hub on Campus West Lafayette")';
+            } catch (error) {
+                console.error('Error starting recognition:', error);
+                alert('Please allow microphone access');
+            }
+        }
+
+        function stopListening() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+            isListening = false;
+
+            document.getElementById('micCircle').classList.remove('listening');
+            document.getElementById('startButton').classList.remove('listening');
+            document.getElementById('startButton').textContent = 'Start Listening';
+            document.getElementById('status').textContent = 'Press the button and say a property name';
+            document.getElementById('voiceText').textContent = '';
+        }
+
+        function goToDashboard() {
+            window.location.href = '/dashboard';
+        }
+
+        async function searchProperty(query) {
+            stopListening();
+
+            const overlay = document.getElementById('loadingOverlay');
+            const readyButton = document.getElementById('readyButton');
+            const spinner = document.querySelector('.spinner');
+            const loadingText = document.getElementById('loadingText');
+
+            overlay.classList.add('active');
+            readyButton.style.display = 'none';
+
+            // Animate steps
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            let currentStep = 0;
+
+            const stepInterval = setInterval(() => {
+                if (currentStep > 0) {
+                    document.getElementById(steps[currentStep - 1]).classList.remove('active');
+                    document.getElementById(steps[currentStep - 1]).classList.add('done');
+                }
+                if (currentStep < steps.length) {
+                    document.getElementById(steps[currentStep]).classList.add('active');
+                    currentStep++;
+                }
+            }, 2000);
+
+            // Show button after 30 seconds regardless of API response
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                loadingText.textContent = 'Ready to explore your new home!';
+                readyButton.style.display = 'block';
+            }, 30000);
+
+            try {
+                const response = await fetch('/api/search-and-extract', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({query: query})
+                });
+
+                const result = await response.json();
+
+                clearInterval(stepInterval);
+
+                if (result.error) {
+                    alert('Error: ' + result.error);
+                    overlay.classList.remove('active');
+                    // Reset steps
+                    steps.forEach(step => {
+                        document.getElementById(step).classList.remove('active', 'done');
+                    });
+                } else {
+                    // Mark all steps as done
+                    steps.forEach(step => {
+                        document.getElementById(step).classList.remove('active');
+                        document.getElementById(step).classList.add('done');
+                    });
+
+                    // Hide spinner and show button
+                    spinner.style.display = 'none';
+                    loadingText.textContent = 'Ready to explore your new home!';
+                    readyButton.style.display = 'block';
+                }
+            } catch (error) {
+                clearInterval(stepInterval);
+                console.error('Search error:', error);
+                alert('Search failed: ' + error);
+                overlay.classList.remove('active');
+                steps.forEach(step => {
+                    document.getElementById(step).classList.remove('active', 'done');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
